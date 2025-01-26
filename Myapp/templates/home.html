@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #20a3cf;
+            color: #333;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        header h1 {
+            text-align: center;
+            padding-left:580px;
+        }
+       
+        main {
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+        h2 {
+            color: #20a3cf;
+        }
+        h4 {
+            font-family: Arial, sans-serif;
+            color: #232020;
+            font-size: large;
+        }
+
+        .description {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .functionality {
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .functionality h3 {
+            color: #20a3cf;
+        }
+        .functionality ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        .functionality li {
+            padding: 5px 0;
+            font-size: 1.1em;
+        }
+
+        .endpoint-list {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .endpoint-list li {
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+        .endpoint-list li a {
+            text-decoration: none;
+            color: #020202;
+        }
+        .endpoint-list li a:hover {
+            text-decoration: underline;
+        }
+
+        .future-developments {
+            padding: 20px;
+        }
+
+        .developments-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .developments-list li {
+            padding: 12px;
+            background-color: #f9f9f9;
+            margin-bottom: 12px;
+            border-left: 5px solid #20a3cf;
+        }
+
+        .developments-list li strong {
+            color: #20a3cf;
+            font-size: 1.1em;
+        }
+
+        .developments-list li:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Custom Style for Dr. Ananonymous text */
+        .dr-line {
+            font-family: 'Georgia', serif;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Connect Care Hub</h1>
+    </header>
+    <main>
+        <h2>Project Overview</h2>
+
+        <h4>
+            <p>This project connects different hospitals across the same city, enabling them to communicate with each other. Hospitals can view the resources available at other hospitals and request resources from them when needed.</p>
+            <p class="dr-line">As you are Dr. Anonymous, you have access to the following functionalities:</p>
+        </h4>
+        <div class="functionality">
+            <ul>
+                <li>View records of different hospitals in the city</li>
+                <li>Search for a particular hospital based on name </li>
+                <li>Add appointments for patients to specific hospitals</li>
+                <li>View available resources of other hospitals, including medical equipment, doctors, and more</li>
+            </ul>
+            <h4>Only Admins can add hospitals*</h4>
+        </div>
+
+        <h2>API Endpoints</h2>
+        <p>Here are the available API endpoints for interacting with this project:</p>
+        <ul class="endpoint-list">
+            <li><a href="/hospitals/">Get List of Hospitals</a></li>
+            <li><a href="/create_appointment/">Add Appointments</a></li>
+            <li><a href="/request/">Request a Resource from Other Hospitals</a></li>
+        </ul>
+
+        <section class="future-developments">
+            <h2>Planned Features and Improvements</h2>
+            <p class="description">
+                In the future, Connect Care Hub aims to further enhance its capabilities to provide more secure, efficient, and real-time services for hospitals and healthcare professionals. Planned developments include securing data transfers, enabling large-scale file storage, and introducing a real-time chat application for doctors.
+            </p>
+            <ul class="developments-list">
+                <li><strong>Secure Data Transfer:</strong> Implementing advanced encryption methods to ensure that all data transmitted and protected from unauthorized access.</li>
+                <li><strong>Large-Scale File Storage:</strong> Enabling hospitals to store large volumes of medical records, images, and other vital documents efficiently.</li>
+                <li><strong>Real-Time Chat Application for Doctors:</strong> Adding a real-time messaging feature where doctors can securely communicate with one another for consultations, sharing critical patient information, and making quick decisions in emergency situations.</li>
+                <li><strong>Advanced Security Measures:</strong> Strengthening the platform’s defense mechanisms against common cybersecurity threats.</li>
+                <li><strong>Optimized User Experience:</strong> Continuously improving the user interface (UI) and user experience (UX) for easy navigation and a seamless experience.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

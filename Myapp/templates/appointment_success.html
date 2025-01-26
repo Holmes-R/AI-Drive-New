@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Created Successfully</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #20a3cf;
+            color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white; 
+        }
+
+        main {
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        h1 {
+            color: #20a3cf;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #20a3cf;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #1796b7;
+        }
+
+        a {
+            text-decoration: none;
+            color: #020202;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Connect Care Hub</h1>
+    </header>
+    <main>
+        <h1>Your Appointment has been successfully created!</h1>
+        <a href="{% url 'create_appointment' %}" class="btn">Go back to create another appointment</a>
+        <a href="{% url 'hospital_list' %}" class="btn">Go to Hospital List</a>
+    </main>
+</body>
+</html>

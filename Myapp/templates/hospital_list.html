@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #20a3cf;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+        h1 {
+            color: #fff;
+        }
+        .hospital-list-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .search-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-form input[type="text"] {
+            padding: 10px;
+            width: 200px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-form button {
+            padding: 10px;
+            background-color: #20a3cf;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-form button:hover {
+            background-color: #17a2b8;
+        }
+        .hospital-list-table button {
+            padding: 8px 16px;
+            background-color: #20a3cf;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .hospital-list-table button:hover {
+            background-color: #17a2b8;
+        }
+        .go-back-button {
+            padding: 10px 20px;
+            background-color: #20a3cf;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        .go-back-button:hover {
+            background-color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Connect Care Hub</h1>
+        <p class="hospital-details">View details of available hospitals in the city.</p>
+    </header>
+    <main>
+
+        <div style="font-size: x-large;color: #20a3cf;font-weight: bold;">Hospitals:</div>
+        <table class="hospital-list-table">
+            <thead>
+                <tr>
+                    <th>Hospital Name</th>
+                    <th>Admin</th>
+                    <th>Address</th>
+                    <th>Pincode</th>
+                    <th>Phone Number</th>
+                    <th>Available Doctors</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if hospitals %}
+                    {% for hospital in hospitals %}
+                    <tr>
+                        <td>{{ hospital.HospitalName }}</td>
+                        <td>{{ hospital.Admin }}</td>
+                        <td>{{ hospital.Address }}</td>
+                        <td>{{ hospital.Pincode }}</td>
+                        <td>{{ hospital.PhoneNumber }}</td>
+                        <td>{{ hospital.AvailableDoctors }}</td>
+                        <td>
+                            <a href="{% url 'hospital_detail' hospital.HospitalName %}">
+                                <button>View Details</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="7">No hospitals found matching your search.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <button class="go-back-button" onclick="window.location.href='/'">Go Back to Home</button>
+    </main>
+</body>
+</html>

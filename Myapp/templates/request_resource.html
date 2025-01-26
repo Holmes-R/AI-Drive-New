@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Resource</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #available-resources {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Request a Resource</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="hospital">Select Hospital:</label>
+        <select id="hospital" name="hospital_id" required>
+            <option value="" disabled selected>Select a hospital</option>
+            {% for hospital in hospitals %}
+                <option value="{{ hospital.id }}">{{ hospital.HospitalName }}</option>
+            {% endfor %}
+        </select>
+
+        <div id="available-resources">
+        </div>
+
+        <label for="resource_type">Select Resource Type:</label>
+        <select id="resource_type" name="resource_type" required>
+            <option value="blood">Blood</option>
+            <option value="cylinder">Cylinder</option>
+            <option value="ambulance">Ambulance</option>
+        </select>
+
+        <div id="extra-fields">
+          
+        </div>
+
+        <button type="submit">Request Resource</button>
+    </form>
+    <div class="center">
+        <a href="/" class="button">Home</a>
+    </div>
+
+    <script>
+        const hospitalField = document.getElementById("hospital");
+        const availableResourcesDiv = document.getElementById("available-resources");
+        const resourceTypeField = document.getElementById("resource_type");
+        const extraFieldsDiv = document.getElementById("extra-fields");
+
+        hospitalField.addEventListener("change", function () {
+            const hospitalName = this.options[this.selectedIndex].text;
+
+            if (hospitalName) {
+                fetch(`/get_hospital_resources/${hospitalName}/`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        availableResourcesDiv.innerHTML = `
+                            <h3>Available Resources:</h3>
+                            <p><strong>Blood Types:</strong> ${data.blood_types.join(", ")}</p>
+                            <p><strong>Cylinders:</strong> ${data.cylinders.join(", ")}</p>
+                            <p><strong>Organs:</strong> ${data.organs.join(", ")}</p>
+                            <p><strong>Ambulances:</strong> ${data.ambulances}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error("Error fetching resources:", error);
+                        availableResourcesDiv.innerHTML = "<p>Unable to load resources. Please try again.</p>";
+                    });
+            }
+        });
+
+        resourceTypeField.addEventListener("change", function () {
+            const selectedResource = this.value;
+            extraFieldsDiv.innerHTML = ""; 
+
+            if (selectedResource === "blood") {
+                extraFieldsDiv.innerHTML = `
+                    <label for="blood_type">Blood Type:</label>
+                    <select id="blood_type" name="blood_type" required>
+                        <option value="A+">A+</option>
+                        <option value="B+">B+</option>
+                        <option value="O+">O+</option>
+                        <option value="AB+">AB+</option>
+                        <option value="A-">A-</option>
+                        <option value="B-">B-</option>
+                        <option value="O-">O-</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" required>
+                `;
+            } else if (selectedResource === "cylinder") {
+                extraFieldsDiv.innerHTML = `
+                    <label for="cylinder_type">Cylinder Type:</label>
+                    <input type="text" id="cylinder_type" name="cylinder_type" required>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" required>
+                `;
+            } else if (selectedResource === "organ") {
+                extraFieldsDiv.innerHTML = `
+                    <label for="organ_type">Organ Type:</label>
+                    <input type="text" id="organ_type" name="organ_type" required>
+                `;
+            } else if (selectedResource === "ambulance") {
+                extraFieldsDiv.innerHTML = `
+                    <label for="quantity">Number of Ambulances:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" required>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
